@@ -24,7 +24,12 @@ public class Creator {
 
         // write as json files
 
+        String fileName = order.getId() + ".json";
+
         ObjectMapper mapper = new ObjectMapper();
+
+        mapper.writeValue(new File(fileName), order);
+
         String json = mapper.writeValueAsString(order);
 
     }
