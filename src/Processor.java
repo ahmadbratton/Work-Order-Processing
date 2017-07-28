@@ -31,6 +31,13 @@ public class Processor {
 
     public static void main(String args[]) {
         Processor processor = new Processor();
-        processor.processWorkOrders();
+        while (true) {
+            processor.processWorkOrders();
+            try {
+                Thread.sleep(5000l);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
