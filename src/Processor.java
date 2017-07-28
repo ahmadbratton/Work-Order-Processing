@@ -5,7 +5,7 @@ import java.util.*;
  * Created by David Turk on 7/28/17.
  */
 public class Processor {
-    Map<Status,Set> workOrders = new HashMap<>();
+    Map<Status,List> workOrders = new HashMap<>();
 
     public void processWorkOrders() {
         moveIt();
