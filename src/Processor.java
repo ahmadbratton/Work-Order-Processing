@@ -30,8 +30,8 @@ public class Processor {
     }
 
     public static void main(String args[]) {
+        Processor processor = new Processor();
         while (true) {
-            Processor processor = new Processor();
             processor.processWorkOrders();
             try {
                 Thread.sleep(5000l);

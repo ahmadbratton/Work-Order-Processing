@@ -7,8 +7,9 @@ public class Creator {
     }
 
     public static void main(String args[]) {
+        Creator creator = new Creator();
         while(true){
-            Creator creator = new Creator();
+
             creator.createWorkOrders();
         }
     }
