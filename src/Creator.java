@@ -40,13 +40,14 @@ public class Creator {
 
     public static void main(String args[]) {
         Creator creator = new Creator();
-<<<<<<< HEAD
-        while(true){
-=======
+
         while (true) {
 
->>>>>>> 6c8917b4a7a1ea4a0e082e87c16d9a780c85c243
-            creator.createWorkOrders();
+            try {
+                creator.createWorkOrders();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
