@@ -1,3 +1,4 @@
+import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
@@ -20,25 +21,28 @@ public class Creator {
         String nameOfSender = scanner.nextLine();
 
         // create work orders
-        WorkOrder order = new WorkOrder(description,nameOfSender,Status.INITIAL);
+        WorkOrder order = new WorkOrder(description, nameOfSender, Status.INITIAL);
 
         // write as json files
+        try {
+            String fileName = order.getId() + ".json";
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File(fileName), order);
+            String json = mapper.writeValueAsString(order);
+        } catch (IOException e) {
+            System.out.println("Error in processing file.");
+            e.printStackTrace();
+        }
 
-        String fileName = order.getId() + ".json";
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        mapper.writeValue(new File(fileName), order);
-
-        String json = mapper.writeValueAsString(order);
 
     }
 
     public static void main(String args[]) {
         Creator creator = new Creator();
-        while(true){
+        while (true) {
 
             creator.createWorkOrders();
         }
     }
 }
+
