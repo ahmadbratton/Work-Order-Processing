@@ -1,41 +1,48 @@
+import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
  * Created by David Turk on 7/28/17.
  */
 public class Creator {
-    public void createWorkOrders() {
+
+    public void createWorkOrders() throws IOException {
         // read input:
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter the WorkOrder description:”);
-                creator.setDescription(scanner.nextline());
+        System.out.println("Enter the WorkOrder description:");
+        String description = scanner.nextLine();
 
         System.out.println("Enter the name of who sent the WorkOrder:");
-        creator.setSenderName(scanner.nextline());
+        String nameOfSender = scanner.nextLine();
 
-        creator.setStatus = Status.INITIAL;
-
-        creator.getId();
         // create work orders
+        WorkOrder order = new WorkOrder(description, nameOfSender, Status.INITIAL);
 
         // write as json files
+        try {
+            String fileName = order.getId() + ".json";
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File(fileName), order);
+            String json = mapper.writeValueAsString(order);
+        } catch (IOException e) {
+            System.out.println("Error in processing file.");
+            e.printStackTrace();
+        }
 
-        ObjectMapper mapper = new ObjectMapper();
-        fileName = creator.getId();
-        mapper.writeValue(new File(fileName), creator);
-        String json = mapper.writeValueAsString(creator);
 
     }
 
     public static void main(String args[]) {
         Creator creator = new Creator();
-        while(true){
+        while (true) {
 
             creator.createWorkOrders();
         }
     }
 }
+
