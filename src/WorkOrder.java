@@ -7,6 +7,10 @@ public class WorkOrder {
     private String senderName;
     private Status status;
 
+    public WorkOrder(){
+
+    }
+
     public WorkOrder(String description, String senderName, Status status) {
         this.description = description;
         this.senderName = senderName;
