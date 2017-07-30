@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 /**
  * Created by David Turk on 7/28/17.
  */
@@ -39,9 +40,14 @@ public class Creator {
 
     public static void main(String args[]) {
         Creator creator = new Creator();
+
         while (true) {
 
-            creator.createWorkOrders();
+            try {
+                creator.createWorkOrders();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

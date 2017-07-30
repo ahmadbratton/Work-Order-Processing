@@ -41,4 +41,13 @@ public class WorkOrder {
     public long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "WorkOrder{" +
+                "description='" + description + '\'' +
+                ", senderName='" + senderName + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

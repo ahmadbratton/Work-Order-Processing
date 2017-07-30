@@ -1,13 +1,14 @@
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * Created by David Turk on 7/28/17.
  */
 public class Processor {
-    private Map<Status,List> workOrders = new HashMap<>();
+    private Map<Status,ArrayList> workOrders = new HashMap<>();
 
     public Processor() {
         for(Status status : Status.getAllStatus()){
@@ -21,7 +22,39 @@ public class Processor {
     }
 
     private void moveIt() {
-        // move work orders in map from one state to another
+        printMap();
+
+        ArrayList<WorkOrder> inProgressOrders = workOrders.get(Status.IN_PROGRESS);
+        if (inProgressOrders.size() > 0){
+            WorkOrder firstInprogress = inProgressOrders.get(0);
+            inProgressOrders.remove(0);
+            workOrders.get(Status.DONE).add(firstInprogress);
+        }
+
+        ArrayList<WorkOrder> assignedOrders = workOrders.get(Status.ASSIGNED);
+        if (assignedOrders.size() > 0){
+            WorkOrder firstAssigned = assignedOrders.get(0);
+            assignedOrders.remove(0);
+            workOrders.get(Status.IN_PROGRESS).add(firstAssigned);
+        }
+        ArrayList<WorkOrder> initialOrders = workOrders.get(Status.INITIAL);
+        if (initialOrders.size() > 0){
+            WorkOrder firstInital = initialOrders.get(0);
+            initialOrders.remove(0);
+            workOrders.get(Status.ASSIGNED).add(firstInital);
+        }
+        printMap();
+
+    }
+
+    private void printMap(){
+        for(Status status : workOrders.keySet()){
+            System.out.println(status.getEnglishName()+":");
+            ArrayList<WorkOrder> orders = workOrders.get(status);
+            for(WorkOrder order : orders){
+                System.out.println("\t" + order.toString());
+            }
+        }
     }
 
     private void readIt() {
