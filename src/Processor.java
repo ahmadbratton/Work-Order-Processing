@@ -73,7 +73,6 @@ public class Processor {
         for (File f : directory.listFiles()) {
             if (f.getName().endsWith(".json")) {
                 jsonFiles.add(f);
-                f.delete();
             }
         }
         return jsonFiles.toArray(new File[0]);
@@ -90,6 +89,7 @@ public class Processor {
                     fileContents.add( fileScanner.nextLine() );
                 }
                 jsonStrings.add(fileContents.toArray(new String[0])[0]);
+                f.delete();
             } catch (FileNotFoundException e) {
                 System.out.println("ERROR! File " + f.getPath() + " not found");
                 e.printStackTrace();
@@ -103,10 +103,10 @@ public class Processor {
         for(String json : jsonStrings){
             try{
                 ObjectMapper mapper = new ObjectMapper();
-                WorkOrder vi = mapper.readValue(json, WorkOrder.class);
-                reports.add(vi);
+                WorkOrder wo = mapper.readValue(json, WorkOrder.class);
+                reports.add(wo);
             } catch (IOException e) {
-                System.out.println("\t\tCreating vehicle info: Failure!");
+                System.out.println("\t\tCreating work order: Failure!");
                 e.printStackTrace();
             }
         }
