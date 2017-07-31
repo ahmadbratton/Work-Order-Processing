@@ -29,6 +29,7 @@ public class Processor {
             WorkOrder firstInprogress = inProgressOrders.get(0);
             inProgressOrders.remove(0);
             workOrders.get(Status.DONE).add(firstInprogress);
+            firstInprogress.setStatus(Status.DONE);
         }
 
         ArrayList<WorkOrder> assignedOrders = workOrders.get(Status.ASSIGNED);
@@ -36,12 +37,14 @@ public class Processor {
             WorkOrder firstAssigned = assignedOrders.get(0);
             assignedOrders.remove(0);
             workOrders.get(Status.IN_PROGRESS).add(firstAssigned);
+            firstAssigned.setStatus(Status.IN_PROGRESS);
         }
         ArrayList<WorkOrder> initialOrders = workOrders.get(Status.INITIAL);
         if (initialOrders.size() > 0){
             WorkOrder firstInital = initialOrders.get(0);
             initialOrders.remove(0);
             workOrders.get(Status.ASSIGNED).add(firstInital);
+            firstInital.setStatus(Status.ASSIGNED);
         }
         printMap();
 
